@@ -1,6 +1,7 @@
 package com.microsoft.azure;
 
 import com.microsoft.azure.serverless.functions.annotation.*;
+import com.microsoft.azure.serverless.functions.annotation.HttpTrigger.AuthorizationLevel;
 
 public class Demo {
     public static void main(String[] args) {
@@ -8,9 +9,9 @@ public class Demo {
     }
 
     @FunctionName("httpTrigger")
-    public String httpTriggerHandler(@HttpTrigger(name = "req") String req) {
+    public String httpTriggerHandler(@HttpTrigger(name = "req", authLevel = AuthorizationLevel.ANONYMOUS) String req) {
         System.out.println("Hello HttpTrigger!");
-        return "Bye";
+        return "Hello " + req;
     }
 
     @FunctionName("queueTrigger")
@@ -19,12 +20,12 @@ public class Demo {
             @QueueTrigger(name = "qIn", queueName = "q-in", connection = "conn") String qIn,
             @QueueOutput(name = "qOut", queueName = "q-out-1", connection = "conn") String qOut) {
         System.out.println("Hello QueueTrigger!");
-        return "Bye";
+        return "queueTrigger";
     }
 
     @FunctionName("timerTrigger")
     public void timerTriggerHandler(
-            @TimerTrigger(name = "timerInfo", schedule = "0 0 12 * * ?", useMonitor = false) String timerInfo) {
+            @TimerTrigger(name = "timerInfo", schedule = "0 0 12 * * ?") String timerInfo) {
         System.out.println("Hello TimerTrigger!");
     }
 }

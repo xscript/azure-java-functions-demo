@@ -47,9 +47,23 @@
                         <serverId>azure-auth</serverId>
                     </authentication>
                     <resourceGroup>java-functions</resourceGroup>
-                    <appName>azure-java-fuctions-demo</appName>
+                    <appName>azure-java-functions-demo</appName>
                     <region>westus</region>
+                    <appSettings>
+                        <property>
+                            <name>custom_key</name>
+                            <value>custom_value</value>
+                        </property>
+                    </appSettings>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>package-functions</id>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
